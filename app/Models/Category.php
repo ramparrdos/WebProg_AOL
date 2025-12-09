@@ -22,8 +22,8 @@ class Category extends Model
 
     public function scopeForUser($query, $userId)
     {
-        return $query->whereNull('user_id') // global
-                     ->orWhere('user_id', $userId); // user-specific
+        return $query->whereNull('user_id') // Global
+                     ->orWhere('user_id', $userId); // User-specific
     }
 
     public function transactions(): HasMany

@@ -5,62 +5,48 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    public function index(){
+        $userId = Auth::id();
+        $categories = Category::forUser($userId)->get();
+
+        return view('categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function create(){
+        return view('categories.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreCategoryRequest $request)
-    {
-        //
+    public function store(StoreCategoryRequest $request){
+        $data = $request->validated();
+        $data['user_id'] = Auth::id();
+
+        Category::create($data);
+
+        return redirect()->route('categories.index')->with('success', 'Category has been created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
-        //
+    public function edit(Category $category){
+        return view('categories.form', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
-    {
-        //
+    public function update(UpdateCategoryRequest $request, Category $category){
+        $data = $request->validated();
+        $category->update($data);
+
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateCategoryRequest $request, Category $category)
-    {
-        //
-    }
+    public function destroy(Category $category){
+        if($category->user_id !== null && $category->user_id !== Auth::id()){
+            abort(403, 'Unauthorized action.');
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Category $category)
-    {
-        //
+        $category->delete();
+
+        return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
     }
 }
