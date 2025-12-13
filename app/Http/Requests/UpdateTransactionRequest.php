@@ -6,23 +6,16 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateTransactionRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
+   
+   public function rules(): array
     {
-        return false;
+    return [
+        'category_id' => ['required','exists:categories,id'],
+        'amount'      => ['required','numeric'],
+        'type'        => ['required','in:income,expense'],
+        'description' => ['nullable','string','max:1000'],
+        'date'        => ['required','date'],
+    ];
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            //
-        ];
-    }
 }

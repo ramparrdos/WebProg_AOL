@@ -10,9 +10,7 @@ use Illuminate\Database\Seeder;
 
 class TransactionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+
     public function run(): void
     {
         $users = User::all();
@@ -33,6 +31,7 @@ class TransactionSeeder extends Seeder
                     'user_id' => $user->id,
                     'category_id' => $category->id,
                     'amount' => fake()->randomFloat(2, 10, 5000),
+                    'type' => fake()->randomElement(['income','expense']),
                     'description' => fake()->sentence(),
                     'date' => fake()->dateTimeBetween('-90 days', 'now'),
                 ]);

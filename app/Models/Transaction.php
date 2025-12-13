@@ -10,8 +10,11 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'category_id', 'amount', 'description', 'date'];
-    protected $casts = ['date' => 'date'];
+    protected $fillable = ['user_id', 'category_id', 'amount', 'type', 'description', 'date'];
+    protected $casts = [
+        'date' => 'date',
+        'amount' => 'decimal:2',
+    ];
 
     public function user(): BelongsTo
     {

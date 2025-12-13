@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('transactions', function (Blueprint $table) {
@@ -16,15 +14,17 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->decimal('amount', 12, 2);
+            $table->enum('type', ['income','expense']);
             $table->text('description')->nullable();
             $table->date('date');
             $table->timestamps();
+
+            $table->index(['date']);
+            $table->index(['category_id']);
+            $table->index(['type']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('transactions');
