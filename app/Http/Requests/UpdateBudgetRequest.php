@@ -11,7 +11,7 @@ class UpdateBudgetRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true; // UBAH ke true!
     }
 
     /**
@@ -22,7 +22,16 @@ class UpdateBudgetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'amount' => 'required|numeric|min:0',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'amount.required' => 'Amount is required',
+            'amount.numeric' => 'Amount must be a number',
+            'amount.min' => 'Amount must be at least 0',
         ];
     }
 }
