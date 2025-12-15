@@ -7,9 +7,9 @@
         <a href="{{ route('budgets.create') }}" class="btn btn-primary">Create Budget</a>
     </div>
 
-    @if(session('success'))
+    {{-- @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+    @endif --}}
 
     @forelse($budgets as $budget)
         <div class="card mb-3">

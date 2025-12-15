@@ -27,7 +27,7 @@
 
             <div class="collapse navbar-collapse" id="navbarMenu">
 
-                {{-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a href="{{ route('dashboard') }}" 
                            class="nav-link {{ request()->routeIs('dashboard') ? 'active fw-semibold' : '' }}">
@@ -55,7 +55,7 @@
                             Budgets
                         </a>
                     </li>
-                </ul> --}}
+                </ul>
 
                 @auth
                     <div class="dropdown">
