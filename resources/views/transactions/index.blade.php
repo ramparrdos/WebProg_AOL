@@ -38,34 +38,38 @@
 
   <a href="{{ route('transactions.create') }}" class="btn btn-success mb-2">+ New Transaction</a>
 
-  <div class="table-responsive">
-  <table class="table table-striped">
-    <thead><tr><th>Date</th><th>Category</th><th>Type</th><th>Amount</th><th>Description</th><th>Actions</th></tr></thead>
-    <tbody>
-      @forelse($transactions as $t)
-        <tr>
-          <td>{{ $t->date->format('Y-m-d') }}</td>
-          <td>{{ $t->category?->name }}</td>
-          <td><span class="badge {{ $t->type=='income' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($t->type) }}</span></td>
-          <td>
-            Rp {{ number_format($t->amount, 0, ',', '.') }}
-          </td>
-          <td>{{ \Illuminate\Support\Str::limit($t->description,80) }}</td>
-          <td>
-            <a class="btn btn-sm btn-primary" href="{{ route('transactions.edit', $t) }}">Edit</a>
-            <form action="{{ route('transactions.destroy', $t) }}" method="POST" style="display:inline" onsubmit="return confirm('Delete?')">
-              @csrf @method('DELETE')
-              <button class="btn btn-sm btn-danger">Delete</button>
-            </form>
-          </td>
-        </tr>
-      @empty
-        <tr><td colspan="6">No transactions found.</td></tr>
-      @endforelse
-    </tbody>
-  </table>
+  <div class="card table-card">
+    <div class="table-responsive">
+    <table class="table table-striped">
+      <thead><tr><th>Date</th><th>Category</th><th>Type</th><th>Amount</th><th>Description</th><th>Actions</th></tr></thead>
+      <tbody>
+        @forelse($transactions as $t)
+          <tr>
+            <td>{{ $t->date->format('Y-m-d') }}</td>
+            <td>{{ $t->category?->name }}</td>
+            <td><span class="badge {{ $t->type=='income' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($t->type) }}</span></td>
+            <td>
+              Rp {{ number_format($t->amount, 0, ',', '.') }}
+            </td>
+            <td>{{ \Illuminate\Support\Str::limit($t->description,80) }}</td>
+            <td>
+              <a class="btn btn-sm btn-primary" href="{{ route('transactions.edit', $t) }}">Edit</a>
+              <form action="{{ route('transactions.destroy', $t) }}" method="POST" style="display:inline" onsubmit="return confirm('Delete?')">
+                @csrf @method('DELETE')
+                <button class="btn btn-sm btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+        @empty
+          <tr><td colspan="6">No transactions found.</td></tr>
+        @endforelse
+      </tbody>
+    </table>
+    </div>
   </div>
 
-  {{ $transactions->links() }}
+  <div class="mt-4 d-flex justify-content-center">
+    {{ $transactions->links() }}
+  </div>
 </div>
 @endsection

@@ -169,3 +169,91 @@ body {
     border-color: var(--primary);
     color: #fff;
 }
+
+.table-card {
+    border-radius: 14px;
+    overflow: hidden; /* THIS is the key */
+    border: 1px solid var(--border-soft);
+    background: var(--bg-card);
+}
+
+/* Header */
+.table thead {
+    background-color: var(--bg-app);
+}
+
+.table thead th {
+    border-bottom: 1px solid var(--border-soft);
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* Rows */
+.table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(163, 177, 138, 0.12); /* dry sage tint */
+}
+
+/* Remove Bootstrap striping harshness */
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,0.02);
+}
+
+/* Badges */
+.badge.bg-success {
+    background-color: var(--secondary) !important;
+}
+
+.badge.bg-danger {
+    background-color: #b07a63 !important;
+}
+
+/* Pagination container */
+.pagination {
+    gap: 0.35rem;
+}
+
+/* Page items */
+.page-item .page-link {
+    border-radius: 10px;
+    border: 1px solid var(--border-soft);
+    color: var(--text-main);
+    padding: 0.45rem 0.75rem;
+    font-weight: 500;
+    background-color: var(--bg-card);
+    transition: all 0.15s ease;
+}
+
+/* Hover */
+.page-item .page-link:hover {
+    background-color: var(--dry-sage);
+    border-color: var(--dry-sage);
+    color: #fff;
+}
+
+/* Active page */
+.page-item.active .page-link {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+/* Disabled */
+.page-item.disabled .page-link {
+    color: var(--text-muted);
+    background-color: transparent;
+    border-color: transparent;
+}
+
+/* Remove Bootstrap shadows */
+.page-link:focus {
+    box-shadow: none;
+}
+
+.page-item:first-child .page-link,
+.page-item:last-child .page-link {
+    font-weight: 600;
+}
